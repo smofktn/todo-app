@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${MYSQL_DB_HOST}:${MYSQL_DB_PORT}/todo_app?characterEncoding=utf8&character_set_server=utf8mb4&serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: ${MYSQL_DB_USER}
+    password: ${MYSQL_DB_PASS}
+  application:
+    name: todo-app
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
