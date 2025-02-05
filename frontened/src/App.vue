@@ -4,28 +4,15 @@ import apiClient from "./http-common";
 import ApiService from "./services/ApiService";
 import type { Todo } from "./types/todo";
 
-const list: Todo[] = [
-  {
-    id: 1,
-    title: "サンプル",
-    isDone: false,
-  },
-  {
-    id: 2,
-    title: "サンプル",
-    isDone: false,
-  },
-];
+const list = ref<Todo[]>([]);
 
 const inputValue = ref("");
 
 const onClickDelete = (id: number) => {
-  console.log("onClickDelete:", id);
   deleteTodo(id);
 };
 
 const onClickAdd = () => {
-  console.log("onClickAdd:", inputValue.value);
   const requestTodo: Todo = {
     id: 0, //NOTE:仮の値
     title: inputValue.value,
@@ -35,9 +22,9 @@ const onClickAdd = () => {
 };
 
 const getList = async () => {
-  console.log("getList");
-  console.log("listに詰める");
-  await ApiService.getAll();
+  const res = await ApiService.getAll();
+  list.value.splice(0);
+  list.value.push(...res.data);
 };
 const deleteTodo = async (id: number) => {
   await ApiService.delete(id);
