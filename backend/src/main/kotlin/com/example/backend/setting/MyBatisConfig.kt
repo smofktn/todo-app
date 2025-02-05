@@ -10,7 +10,7 @@ import java.io.IOException
 import javax.sql.DataSource
 
 @Configuration
-@MapperScan("com.example.backend.i_mapper")
+@MapperScan("com.example.backend.mapper")
 class MyBatisConfig {
     @Bean
     @Throws(IOException::class)
