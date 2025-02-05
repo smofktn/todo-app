@@ -1,8 +1,9 @@
 import http from "@/http-common";
 import type { Todo } from "@/types/todo";
+import type { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 
 class ApiService {
-  getAll(): Promise<any> {
+  getAll(): Promise<AxiosResponse<Todo[]>> {
     return http.get("/api/v1/todos");
   }
 
@@ -10,7 +11,7 @@ class ApiService {
     return http.get(`/api/v1/todos/${id}`);
   }
 
-  create(data: Todo): Promise<any> {
+  create(data: Todo): Promise<void> {
     return http.post("/api/v1/todos", data);
   }
 
@@ -18,7 +19,7 @@ class ApiService {
     return http.put(`/api/v1/todos/${id}`, data);
   }
 
-  delete(id: any): Promise<any> {
+  delete(id: number): Promise<void> {
     return http.delete(`/api/v1/todos/${id}`);
   }
 
