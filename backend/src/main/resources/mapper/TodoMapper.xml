@@ -7,4 +7,28 @@
         FROM
             todos
     </select>
+    <insert id="insertTodo">
+        INSERT INTO todos (
+            title,
+            deadline,
+            is_done,
+            created_at,
+            updated_at
+        )
+        VALUES (
+            #{title},
+            #{deadline},
+            #{isDone},
+            #{createdAt},
+            #{updatedAt}
+        )
+    </insert>
+    <delete id="deleteTodo">
+        DELETE
+            *
+        FROM
+            todos
+        WHERE
+            id = {id}
+    </delete>
 </mapper>
