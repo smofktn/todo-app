@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from "vue";
 import axios from "axios";
-import { Todo } from "@/types/todo";
+import type { Todo } from "@/types/todo";
 
 const props = defineProps<{
   todos: Todo[];
@@ -10,7 +10,7 @@ const props = defineProps<{
 const emit = defineEmits(["update"]);
 
 const toggleDone = async (todo: Todo) => {
-  await axios.patch(`/api/todos/${todo.id}`, { is_done: !todo.is_done });
+  await axios.patch(`/api/todos/${todo.id}`, { is_done: !todo.isDone });
   emit("update");
 };
 
@@ -23,10 +23,9 @@ const deleteTodo = async (id: number) => {
 <template>
   <ul>
     <li v-for="todo in todos" :key="todo.id">
-      <span :class="{ done: todo.is_done }"
+      <span :class="{ done: todo.isDone }"
         >{{ todo.title }} - {{ todo.deadline || "No deadline" }}</span
       >
-      <button @click="toggleDone(todo)">Toggle Done</button>
       <button @click="deleteTodo(todo.id)">Delete</button>
     </li>
   </ul>

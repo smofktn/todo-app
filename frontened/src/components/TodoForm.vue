@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import axios from "axios";
+import apiClient from "@/http-common";
 
 const title = ref("");
 const deadline = ref<string | undefined>();
 const emit = defineEmits(["todo-added"]);
 
 const addTodo = async () => {
-  await axios.post("/api/todos", {
+  await apiClient.post("/api/v1/todos", {
     title: title.value,
-    deadline: deadline.value,
   });
   title.value = "";
   deadline.value = undefined;
