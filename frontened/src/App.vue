@@ -1,11 +1,8 @@
 <script setup lang="ts">
-
+import TodoListView from "./views/TodoListView.vue";
 </script>
 
 <template>
-  <p>todo-app</p>
+  <TodoListView />
 </template>
 
-<style scoped>
-
-</style>
