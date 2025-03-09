@@ -1,26 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "5.88.0"
-    }
-  }
-}
-
-provider "aws" {
-  profile = var.aws_profile
-  region  = "ap-northeast-1"
-}
-# インスタンス
-resource "aws_instance" "app_server" {
-  ami           = "ami-072298436ce5cb0c4" #Amazon Linux 2 2023 AMI
-  instance_type = "t3.micro"              #無料枠で使用できるのは t2.microとt3.micro
-  subnet_id     = aws_subnet.private-1a.id
-  tags = {
-    Name = var.instance_name
-  }
-}
-
 # vpc
 resource "aws_vpc" "vpc" {
   cidr_block = var.vpc_cidr
@@ -47,8 +24,7 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-
-#ルートテーブル作成
+#ルートテーブル
 resource "aws_route_table" "rtb-public" {
   vpc_id = aws_vpc.vpc.id #VPCとの紐付け
 
@@ -62,7 +38,7 @@ resource "aws_route_table" "rtb-public" {
   }
 }
 
-#サブネットとの紐付け
+#ルートテーブルとサブネットの紐付け
 resource "aws_route_table_association" "rtb-public-1a" {
   subnet_id      = aws_subnet.private-1a.id
   route_table_id = aws_route_table.rtb-public.id
