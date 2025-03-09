@@ -37,3 +37,8 @@ variable "root_table_public_table" {
   type    = string
   default = "practice-root-table-public"
 }
+# s3
+variable "aws_s3_bucket_name" {
+  type    = string
+  default = "practice-s3-bucket-name-fj"
+}
