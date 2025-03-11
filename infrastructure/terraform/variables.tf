@@ -7,7 +7,7 @@ variable "aws_profile" {
 variable "vpc_cidr" {
   description = "The CIDR block of the VPC"
   type        = string
-  default     = "10.0.0.0/24"
+  default     = "10.0.0.0/16"
 }
 variable "vpc_name" {
   type    = string
