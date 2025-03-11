@@ -5,14 +5,23 @@ resource "aws_vpc" "vpc" {
     Name = var.vpc_name
   }
 }
-
-# サブネット
-resource "aws_subnet" "private-1a" {
+# パブリックサブネット
+resource "aws_subnet" "public-1a" {
   vpc_id            = aws_vpc.vpc.id
-  cidr_block        = var.vpc_subnet
+  cidr_block        = var.vpc_subnet1
   availability_zone = "ap-northeast-1a" #アジアパシフィック（東京）リージョン
   tags = {
-    Name = var.vpc_subnet_name
+    Name = var.vpc_public_subnet_name
+  }
+}
+
+# プライベートサブネット
+resource "aws_subnet" "private-1a" {
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = var.vpc_subnet2
+  availability_zone = "ap-northeast-1a" #アジアパシフィック（東京）リージョン
+  tags = {
+    Name = var.vpc_private_subnet_name
   }
 }
 
@@ -24,7 +33,7 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-#ルートテーブル
+# パブリックルートテーブル
 resource "aws_route_table" "rtb-public" {
   vpc_id = aws_vpc.vpc.id #VPCとの紐付け
 
@@ -38,8 +47,16 @@ resource "aws_route_table" "rtb-public" {
   }
 }
 
-#ルートテーブルとサブネットの紐付け
+# バプリックルートテーブルとパブリックサブネットの紐付け
 resource "aws_route_table_association" "rtb-public-1a" {
-  subnet_id      = aws_subnet.private-1a.id
+  subnet_id      = aws_subnet.public-1a.id
   route_table_id = aws_route_table.rtb-public.id
+}
+
+# プライベートルートテーブル
+resource "aws_route_table" "rtb-private" {
+  vpc_id = aws_vpc.vpc.id #VPCとの紐付け
+  tags = {
+    Name = var.root_table_private_table
+  }
 }

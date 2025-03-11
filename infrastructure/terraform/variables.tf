@@ -19,13 +19,21 @@ variable "instance_name" {
   default = "practice-server"
 }
 # subnet
-variable "vpc_subnet" {
+variable "vpc_subnet1" {
   type    = string
-  default = "10.0.0.0/24"
+  default = "10.0.1.0/24"
 }
-variable "vpc_subnet_name" {
+variable "vpc_subnet2" {
   type    = string
-  default = "practice-subnet"
+  default = "10.0.2.0/24"
+}
+variable "vpc_public_subnet_name" {
+  type    = string
+  default = "practice-private-subnet"
+}
+variable "vpc_private_subnet_name" {
+  type    = string
+  default = "practice-private-subnet"
 }
 # インターネットゲートウェイ
 variable "aws_internet_gateway_name" {
@@ -36,6 +44,11 @@ variable "aws_internet_gateway_name" {
 variable "root_table_public_table" {
   type    = string
   default = "practice-root-table-public"
+}
+# プライベートルートテーブル
+variable "root_table_private_table" {
+  type    = string
+  default = "practice-root-table-private"
 }
 # s3
 variable "aws_s3_bucket_name" {
