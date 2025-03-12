@@ -55,3 +55,26 @@ variable "aws_s3_bucket_name" {
   type    = string
   default = "practice-s3-bucket-name-fj"
 }
+# lambda
+variable "aws_lambda_function_name" {
+  type    = string
+  default = "practice-lambda"
+
+}
+
+# null_resouse
+variable "image_name" {
+  type    = string
+  default = "practice-image-tag"
+}
+
+variable "tag_name" {
+  type    = string
+  default = "practice-ecr-tag"
+}
+
+data "aws_caller_identity" "self" {}
+
+locals {
+  account_id = data.aws_caller_identity.self.account_id
+}
